@@ -57,6 +57,7 @@
 abstract class PHPUnit_Extensions_Database_DB_MetaData implements PHPUnit_Extensions_Database_DB_IMetaData
 {
     protected static $metaDataClassMap = array(
+		'firebird'=> 'PHPUnit_Extensions_Database_DB_MetaData_Firebird',
         'pgsql'  => 'PHPUnit_Extensions_Database_DB_MetaData_PgSQL',
         'mysql'  => 'PHPUnit_Extensions_Database_DB_MetaData_MySQL',
         'oci'    => 'PHPUnit_Extensions_Database_DB_MetaData_Oci',

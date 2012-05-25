@@ -55,7 +55,7 @@
  */
 class PHPUnit_Extensions_Database_DB_MetaData_Firebird extends PHPUnit_Extensions_Database_DB_MetaData
 {
-	protected $truncateCommand = 'DELETE FROM';
+    protected $truncateCommand = 'DELETE FROM';
 
     /**
      * Returns an array containing the names of all the tables in the database.
@@ -65,9 +65,9 @@ class PHPUnit_Extensions_Database_DB_MetaData_Firebird extends PHPUnit_Extension
     public function getTableNames()
     {
         $query = 'SELECT RDB$RELATION_NAME
-					FROM RDB$RELATIONS
-					WHERE RDB$VIEW_SOURCE is null
-						AND RDB$SYSTEM_FLAG = 0';
+                    FROM RDB$RELATIONS
+                    WHERE RDB$VIEW_SOURCE is null
+                        AND RDB$SYSTEM_FLAG = 0';
 
         $result = $this->pdo->query($query);
 
@@ -89,10 +89,10 @@ class PHPUnit_Extensions_Database_DB_MetaData_Firebird extends PHPUnit_Extension
     public function getTableColumns($tableName)
     {
         $query = 'SELECT RDB$FIELD_NAME
-					FROM RDB$RELATION_FIELDS
-					WHERE RDB$RELATION_NAME = \'' . strtoupper($tableName) . "'";
+                    FROM RDB$RELATION_FIELDS
+                    WHERE RDB$RELATION_NAME = \'' . strtoupper($tableName) . "'";
 
-		$result = $this->pdo->query($query);
+        $result = $this->pdo->query($query);
 
         $columnNames = array();
         while (($columnName = $result->fetchColumn(0))) {
@@ -112,16 +112,16 @@ class PHPUnit_Extensions_Database_DB_MetaData_Firebird extends PHPUnit_Extension
     public function getTablePrimaryKeys($tableName)
     {
         $query = "SELECT RDB\$FIELD_NAME FROM RDB\$INDICES i
-					LEFT JOIN RDB\$INDEX_SEGMENTS i2 ON (i2.RDB\$INDEX_NAME = i.RDB\$INDEX_NAME)
-					LEFT JOIN RDB\$RELATION_CONSTRAINTS c ON (c.RDB\$INDEX_NAME = i2.RDB\$INDEX_NAME)
-						WHERE c.RDB\$CONSTRAINT_TYPE = 'PRIMARY KEY'
-							AND i.RDB\$RELATION_NAME = '" . strtoupper($tableName) . "'";
+                    LEFT JOIN RDB\$INDEX_SEGMENTS i2 ON (i2.RDB\$INDEX_NAME = i.RDB\$INDEX_NAME)
+                    LEFT JOIN RDB\$RELATION_CONSTRAINTS c ON (c.RDB\$INDEX_NAME = i2.RDB\$INDEX_NAME)
+                        WHERE c.RDB\$CONSTRAINT_TYPE = 'PRIMARY KEY'
+                            AND i.RDB\$RELATION_NAME = '" . strtoupper($tableName) . "'";
 
-		$result = $this->pdo->query($query);
+        $result = $this->pdo->query($query);
 
         $columnNames = array();
         while (($columnName = $result->fetchColumn(0))) {
-			$columnNames[] = $columnName;
+            $columnNames[] = $columnName;
         }
 
         return $columnNames;
